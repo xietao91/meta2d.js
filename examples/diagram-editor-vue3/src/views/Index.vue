@@ -14,7 +14,7 @@
 import { onMounted } from 'vue';
 
 import Header from '../components/Header.vue';
-import Graphics from '../components/Graphics.vue';
+import Graphics from '../components/Graphics_new.vue';
 import View from '../components/View.vue';
 import Props from '../components/Props.vue';
 

@@ -22,6 +22,7 @@ import { register as registerEcharts } from '@meta2d/chart-diagram';
 import { formPens } from '@meta2d/form-diagram';
 import { chartsPens } from '@meta2d/le5le-charts';
 import { ftaPens, ftaPensbyCtx, ftaAnchors } from '@meta2d/fta-diagram';
+import { PCS } from '@/constants/customShapes';
 
 import { useSelection } from '@/services/selections';
 
@@ -49,8 +50,8 @@ onMounted(() => {
   registerCanvasDraw(chartsPens());
   register(ftaPens());
   registerCanvasDraw(ftaPensbyCtx());
+  registerCanvasDraw({PCS});
   registerAnchors(ftaAnchors());
-
   // 注册其他自定义图形库
   // ...
 
@@ -65,6 +66,8 @@ onMounted(() => {
     } else {
       data.locked = 0;
     }
+
+    console.log('open data', data);
     meta2d.open(data);
   }
 
