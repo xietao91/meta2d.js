@@ -1,63 +1,63 @@
 <template>
   <div class="props-panel">
-    <t-form label-align="left">
+    <a-form layout="vertical">
       <h5 class="mb-24">图纸</h5>
-      <t-form-item label="图纸名称" name="name">
-        <t-input v-model="data.name" @change="onChangeData" />
-      </t-form-item>
-      <t-divider />
-      <t-form-item label="网格" name="grid">
-        <t-switch v-model="options.grid" @change="onChangeOptions" />
-      </t-form-item>
-      <t-form-item label="网格大小" name="gridSize">
-        <t-input v-model.number="options.gridSize" @change="onChangeOptions" />
-      </t-form-item>
-      <t-form-item label="网格角度" name="gridRotate">
-        <t-input
-          v-model.number="options.gridRotate"
+      <a-form-item label="图纸名称" name="name">
+        <a-input v-model:value="data.name" @change="onChangeData" />
+      </a-form-item>
+      <a-divider />
+      <a-form-item label="网格" name="grid">
+        <a-switch v-model:checked="options.grid" @change="onChangeOptions" />
+      </a-form-item>
+      <a-form-item label="网格大小" name="gridSize">
+        <a-input-number
+          v-model:value="options.gridSize"
+          :min="1"
           @change="onChangeOptions"
+          style="width: 100%"
         />
-      </t-form-item>
-      <t-form-item label="网格颜色" name="gridColor">
-        <t-color-picker
-          class="w-full"
+      </a-form-item>
+      <a-form-item label="网格角度" name="gridRotate">
+        <a-input-number
+          v-model:value="options.gridRotate"
+          @change="onChangeOptions"
+          style="width: 100%"
+        />
+      </a-form-item>
+      <a-form-item label="网格颜色" name="gridColor">
+        <input
+          type="color"
           v-model="options.gridColor"
-          :show-primary-color-preview="false"
-          format="CSS"
-          :color-modes="['monochrome']"
           @change="onChangeOptions"
+          style="width: 100%; height: 32px; cursor: pointer;"
         />
-      </t-form-item>
+      </a-form-item>
 
-      <t-divider />
+      <a-divider />
 
-      <t-form-item label="标尺" name="rule">
-        <t-switch v-model="options.rule" @change="onChangeOptions" />
-      </t-form-item>
+      <a-form-item label="标尺" name="rule">
+        <a-switch v-model:checked="options.rule" @change="onChangeOptions" />
+      </a-form-item>
 
-      <t-divider />
+      <a-divider />
 
-      <t-form-item label="背景颜色" name="background">
-        <t-color-picker
-          class="w-full"
+      <a-form-item label="背景颜色" name="background">
+        <input
+          type="color"
           v-model="data.background"
-          :show-primary-color-preview="false"
-          format="CSS"
-          :color-modes="['monochrome']"
           @change="onChangeData"
+          style="width: 100%; height: 32px; cursor: pointer;"
         />
-      </t-form-item>
-      <t-form-item label="图元默认颜色" name="color">
-        <t-color-picker
-          class="w-full"
+      </a-form-item>
+      <a-form-item label="图元默认颜色" name="color">
+        <input
+          type="color"
           v-model="data.color"
-          :show-primary-color-preview="false"
-          format="CSS"
-          :color-modes="['monochrome']"
           @change="onChangeData"
+          style="width: 100%; height: 32px; cursor: pointer;"
         />
-      </t-form-item>
-    </t-form>
+      </a-form-item>
+    </a-form>
   </div>
 </template>
 
@@ -104,20 +104,24 @@ const onChangeOptions = () => {
 </script>
 <style lang="postcss" scoped>
 .props-panel {
-  :deep(.t-form) {
-    .t-form__item {
+  :deep(.ant-form) {
+    .ant-form-item {
       margin-bottom: 8px;
     }
-    .t-form__label {
-      padding-right: 8px;
+    .ant-form-item-label {
+      padding-bottom: 4px;
     }
 
-    .t-divider {
+    .ant-divider {
       margin: 12px 0;
     }
 
-    .t-input--auto-width {
+    input[type="color"] {
       width: 100%;
+      height: 32px;
+      cursor: pointer;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
     }
   }
 }

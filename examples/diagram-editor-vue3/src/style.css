@@ -1,3 +1,5 @@
+@import 'ant-design-vue/dist/reset.css';
+
 :root {
   --font-family: '-apple-system', 'BlinkMacSystemFont', 'PingFang SC',
     'Hiragino Sans GB', 'Microsoft YaHei UI', ' Microsoft YaHei',

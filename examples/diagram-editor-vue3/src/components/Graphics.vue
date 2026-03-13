@@ -1,10 +1,10 @@
 <template>
   <div class="graphics">
-    <t-collapse :defaultExpandAll="true">
-      <t-collapse-panel
+    <a-collapse :default-active-key="['0', '1', '2', '3', '4', '5']">
+      <a-collapse-panel
+        :key="index"
         :header="item.name"
-        v-for="item in graphicGroups"
-        :key="item.name"
+        v-for="(item, index) in graphicGroups"
       >
         <template v-for="elem in item.list">
           <div
@@ -19,8 +19,8 @@
             <p :title="elem.name">{{ elem.name }}</p>
           </div>
         </template>
-      </t-collapse-panel>
-    </t-collapse>
+      </a-collapse-panel>
+    </a-collapse>
   </div>
 </template>
 
@@ -740,10 +740,11 @@ const dragStart = (e: any, elem: any) => {
   border-right: 1px solid var(--color-border);
   z-index: 2;
 
-  :deep(.t-collapse) {
-    border-top: none;
+  :deep(.ant-collapse) {
+    background-color: transparent;
+    border: none;
 
-    .t-collapse-panel__content {
+    .ant-collapse-content-box {
       background-color: var(--color-background-active);
       padding: 20px 4px;
       display: grid;

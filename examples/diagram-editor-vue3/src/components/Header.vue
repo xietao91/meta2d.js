@@ -1,126 +1,107 @@
 <template>
   <div class="app-header">
-    <a class="logo" href="https://le5le.com" target="_blank">
+    <!-- <a class="logo" href="https://le5le.com" target="_blank">
       <img src="/favicon.ico" />
       <span>乐吾乐</span>
-    </a>
-    <t-dropdown
-      :minColumnWidth="200"
-      :maxHeight="560"
-      overlayClassName="header-dropdown"
-    >
+    </a> -->
+    <a-dropdown>
+      <template #overlay>
+        <a-menu @click="handleFileMenuClick">
+          <a-menu-item key="newFile">
+            新建文件
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="openFile">
+            打开文件
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="downloadJson">
+            下载JSON文件
+          </a-menu-item>
+          <a-menu-item key="downloadPng">
+            下载为PNG
+          </a-menu-item>
+          <a-menu-item key="downloadSvg">
+            下载为SVG
+          </a-menu-item>
+        </a-menu>
+      </template>
       <a> 文件 </a>
-      <t-dropdown-menu>
-        <t-dropdown-item @click="newFile">
-          <a>新建文件</a>
-        </t-dropdown-item>
-        <t-dropdown-item @click="openFile" divider="true">
-          <a>打开文件</a>
-        </t-dropdown-item>
-
-        <t-dropdown-item divider="true">
-          <a @click="downloadJson">下载JSON文件</a>
-        </t-dropdown-item>
-
-        <t-dropdown-item>
-          <a @click="downloadPng">下载为PNG</a>
-        </t-dropdown-item>
-        <t-dropdown-item>
-          <a @click="downloadSvg">下载为SVG</a>
-        </t-dropdown-item>
-      </t-dropdown-menu>
-    </t-dropdown>
-    <t-dropdown
-      :minColumnWidth="180"
-      :maxHeight="500"
-      overlayClassName="header-dropdown"
-    >
-      <a> 编辑 </a>
-      <t-dropdown-menu>
-        <t-dropdown-item>
-          <a @click="onUndo">
+    </a-dropdown>
+    <a-dropdown>
+      <template #overlay>
+        <a-menu @click="handleEditMenuClick">
+          <a-menu-item key="onUndo">
             <div class="flex">
               撤销 <span class="flex-grow"></span> Ctrl + Z
             </div>
-          </a>
-        </t-dropdown-item>
-        <t-dropdown-item divider="true">
-          <a @click="onRedo">
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="onRedo">
             <div class="flex">
               恢复 <span class="flex-grow"></span> Ctrl + Y
             </div>
-          </a>
-        </t-dropdown-item>
-        <t-dropdown-item>
-          <a @click="onCut">
+          </a-menu-item>
+          <a-menu-item key="onCut">
             <div class="flex">
               剪切 <span class="flex-grow"></span> Ctrl + X
             </div>
-          </a>
-        </t-dropdown-item>
-        <t-dropdown-item>
-          <a @click="onCopy">
+          </a-menu-item>
+          <a-menu-item key="onCopy">
             <div class="flex">
               复制 <span class="flex-grow"></span> Ctrl + C
             </div>
-          </a>
-        </t-dropdown-item>
-        <t-dropdown-item divider="true">
-          <a @click="onPaste">
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="onPaste">
             <div class="flex">
               粘贴 <span class="flex-grow"></span> Ctrl + V
             </div>
-          </a>
-        </t-dropdown-item>
-        <t-dropdown-item>
-          <a @click="onAll">
+          </a-menu-item>
+          <a-menu-item key="onAll">
             <div class="flex">
               全选 <span class="flex-grow"></span> Ctrl + A
             </div>
-          </a>
-        </t-dropdown-item>
-        <t-dropdown-item>
-          <a @click="onDelete">
+          </a-menu-item>
+          <a-menu-item key="onDelete">
             <div class="flex">删除 <span class="flex-grow"></span> DELETE</div>
-          </a>
-        </t-dropdown-item>
-      </t-dropdown-menu>
-    </t-dropdown>
-    <t-dropdown
-      :minColumnWidth="180"
-      :maxHeight="500"
-      :delay2="[10, 150]"
-      overlayClassName="header-dropdown"
-    >
+          </a-menu-item>
+        </a-menu>
+      </template>
+      <a> 编辑 </a>
+    </a-dropdown>
+    <a-dropdown>
+      <template #overlay>
+        <a-menu>
+          <a-menu-item v-for="(item, index) in assets.helps" :key="index">
+            <a :href="item.url" target="_blank">{{ item.name }}</a>
+          </a-menu-item>
+        </a-menu>
+      </template>
       <a> 帮助 </a>
-      <t-dropdown-menu>
-        <t-dropdown-item v-for="item in assets.helps" :divider="item.divider">
-          <a :href="item.url" target="_blank">{{ item.name }}</a>
-        </t-dropdown-item>
-      </t-dropdown-menu>
-    </t-dropdown>
+    </a-dropdown>
   </div>
   <div class="app-header">
-    <t-tooltip content="撤销">
+    <a-tooltip title="撤销">
       <svg class="l-icon" aria-hidden="true" @click="onUndo">
         <use xlink:href="#l-undo"></use>
       </svg>
-    </t-tooltip>
-    <t-tooltip content="重做">
+    </a-tooltip>
+    <a-tooltip title="重做">
       <svg class="l-icon" aria-hidden="true" @click="onRedo">
         <use xlink:href="#l-redo"></use>
       </svg>
-    </t-tooltip>
-    <t-tooltip content="直线">
+    </a-tooltip>
+    <a-tooltip title="直线">
       <span
         :draggable="true"
         @dragstart="onAddShape($event, 'line')"
         @click="onAddShape($event, 'line')"
       >
-        <t-icon name="slash" />
+        <a-icon type="slash" />
       </span>
-    </t-tooltip>
-    <t-tooltip content="文字">
+    </a-tooltip>
+    <a-tooltip title="文字">
       <span
         :draggable="true"
         @dragstart="onAddShape($event, 'text')"
@@ -130,8 +111,8 @@
           <use xlink:href="#l-text"></use>
         </svg>
       </span>
-    </t-tooltip>
-    <t-tooltip content="连线">
+    </a-tooltip>
+    <a-tooltip title="连线">
       <svg
         width="1em"
         height="1em"
@@ -147,12 +128,20 @@
           fill="currentColor"
         ></path>
       </svg>
-    </t-tooltip>
-    <t-dropdown
-      :minColumnWidth="160"
-      :maxHeight="560"
-      overlayClassName="header-dropdown"
-    >
+    </a-tooltip>
+    <a-dropdown>
+      <template #overlay>
+        <a-menu @click="handleLineTypeMenuClick">
+          <a-menu-item v-for="item in lineTypes" :key="item.value">
+            <div class="flex middle">
+              {{ item.name }} <span class="flex-grow"></span>
+              <svg class="l-icon" aria-hidden="true">
+                <use :xlink:href="item.icon"></use>
+              </svg>
+            </div>
+          </a-menu-item>
+        </a-menu>
+      </template>
       <a>
         <svg class="l-icon" aria-hidden="true">
           <use
@@ -162,87 +151,65 @@
           ></use>
         </svg>
       </a>
-      <t-dropdown-menu>
-        <t-dropdown-item v-for="item in lineTypes">
-          <div class="flex middle" @click="changeLineType(item.value)">
-            {{ item.name }} <span class="flex-grow"></span>
-            <svg class="l-icon" aria-hidden="true">
-              <use :xlink:href="item.icon"></use>
-            </svg>
-          </div>
-        </t-dropdown-item>
-      </t-dropdown-menu>
-    </t-dropdown>
-    <t-dropdown
-      :minColumnWidth="160"
-      :maxHeight="560"
-      :delay2="[10, 150]"
-      overlayClassName="header-dropdown"
-    >
+    </a-dropdown>
+    <a-dropdown>
+      <template #overlay>
+        <a-menu @click="handleFromArrowMenuClick">
+          <a-menu-item v-for="item in fromArrows" :key="item.value">
+            <div
+              class="flex middle"
+              style="height: 30px"
+            >
+              <svg class="l-icon" aria-hidden="true">
+                <use :xlink:href="item.icon"></use>
+              </svg>
+            </div>
+          </a-menu-item>
+        </a-menu>
+      </template>
       <a>
         <svg class="l-icon" aria-hidden="true">
           <use
-            :xlink:href="
-              fromArrows.find((item) => item.value === fromArrow)?.icon
-            "
+            :xlink:href="fromArrows.find((item) => item.value === fromArrow)?.icon"
           ></use>
         </svg>
       </a>
-      <t-dropdown-menu>
-        <t-dropdown-item v-for="item in fromArrows">
-          <div
-            class="flex middle"
-            style="height: 30px"
-            @click="changeFromArrow(item.value)"
-          >
-            <svg class="l-icon" aria-hidden="true">
-              <use :xlink:href="item.icon"></use>
-            </svg>
-          </div>
-        </t-dropdown-item>
-      </t-dropdown-menu>
-    </t-dropdown>
-    <t-dropdown
-      :minColumnWidth="160"
-      :maxHeight="560"
-      :delay2="[10, 150]"
-      overlayClassName="header-dropdown"
-    >
+    </a-dropdown>
+    <a-dropdown>
+      <template #overlay>
+        <a-menu @click="handleToArrowMenuClick">
+          <a-menu-item v-for="item in toArrows" :key="item.value">
+            <div
+              class="flex middle"
+              style="height: 30px"
+            >
+              <svg class="l-icon" aria-hidden="true">
+                <use :xlink:href="item.icon"></use>
+              </svg>
+            </div>
+          </a-menu-item>
+        </a-menu>
+      </template>
       <a>
         <svg class="l-icon" aria-hidden="true">
-          <use
-            :xlink:href="toArrows.find((item) => item.value === toArrow)?.icon"
-          ></use>
+          <use :xlink:href="toArrows.find((item) => item.value === toArrow)?.icon"></use>
         </svg>
       </a>
-      <t-dropdown-menu>
-        <t-dropdown-item v-for="item in toArrows">
-          <div
-            class="flex middle"
-            style="height: 30px"
-            @click="changeToArrow(item.value)"
-          >
-            <svg class="l-icon" aria-hidden="true">
-              <use :xlink:href="item.icon"></use>
-            </svg>
-          </div>
-        </t-dropdown-item>
-      </t-dropdown-menu>
-    </t-dropdown>
+    </a-dropdown>
     <div style="width: 64px"></div>
     <div v-show="scale > 0" style="line-height: 40px">{{ scale }}%</div>
-    <t-tooltip content="100%视图" placement="bottom">
-      <a @click="onScaleDefault"><t-icon name="refresh" /></a>
-    </t-tooltip>
-    <t-tooltip content="窗口大小" placement="bottom">
+    <a-tooltip title="100%视图">
+      <a @click="onScaleDefault"><a-icon type="reload" /></a>
+    </a-tooltip>
+    <a-tooltip title="窗口大小">
       <a @click="onScaleWindow" style="margin-left: -16px"
-        ><t-icon name="fullscreen-exit"
+        ><a-icon type="fullscreen-exit"
       /></a>
-    </t-tooltip>
+    </a-tooltip>
     <div style="width: 36px"></div>
-    <t-tooltip content="运行查看">
-      <t-icon name="play-circle-stroke" @click="onView" />
-    </t-tooltip>
+    <a-tooltip title="运行查看">
+      <a-icon type="play-circle" @click="onView" />
+    </a-tooltip>
   </div>
 </template>
 
@@ -252,7 +219,7 @@ import { useRouter } from 'vue-router';
 import { Pen, PenType, deepClone } from '@meta2d/core';
 // @ts-ignore
 import FileSaver from 'file-saver';
-import { MessagePlugin } from 'tdesign-vue-next';
+import { message } from 'ant-design-vue';
 
 const router = useRouter();
 
@@ -417,6 +384,38 @@ const changeToArrow = (value: string) => {
   }
 };
 
+const handleFileMenuClick = (e: any) => {
+  const key = e.key;
+  if (key === 'newFile') newFile();
+  else if (key === 'openFile') openFile();
+  else if (key === 'downloadJson') downloadJson();
+  else if (key === 'downloadPng') downloadPng();
+  else if (key === 'downloadSvg') downloadSvg();
+};
+
+const handleEditMenuClick = (e: any) => {
+  const key = e.key;
+  if (key === 'onUndo') onUndo();
+  else if (key === 'onRedo') onRedo();
+  else if (key === 'onCut') onCut();
+  else if (key === 'onCopy') onCopy();
+  else if (key === 'onPaste') onPaste();
+  else if (key === 'onAll') onAll();
+  else if (key === 'onDelete') onDelete();
+};
+
+const handleLineTypeMenuClick = (e: any) => {
+  changeLineType(e.key);
+};
+
+const handleFromArrowMenuClick = (e: any) => {
+  changeFromArrow(e.key);
+};
+
+const handleToArrowMenuClick = (e: any) => {
+  changeToArrow(e.key);
+};
+
 const newFile = () => {
   meta2d.open({ name: '新建项目', pens: [] } as any);
 };
@@ -492,7 +491,7 @@ function isShowChild(pen: any, store: any) {
 
 const downloadSvg = () => {
   if (!C2S) {
-    MessagePlugin.error('请先加载乐吾乐官网下的canvas2svg.js');
+    message.error('请先加载乐吾乐官网下的canvas2svg.js');
     return;
   }
 
@@ -682,7 +681,7 @@ const onView = () => {
 </style>
 
 <style>
-.t-dropdown__item-text {
+.ant-dropdown-menu {
   a {
     color: var(--color);
     text-decoration: none;

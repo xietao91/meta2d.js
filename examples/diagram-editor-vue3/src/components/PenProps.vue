@@ -1,48 +1,45 @@
 <template>
   <div class="props-panel">
-    <t-form label-align="left" v-if="pen">
+    <a-form layout="vertical" v-if="pen">
       <h5 class="mb-24">图元</h5>
-      <t-form-item label="文本" name="text">
-        <t-input v-model="pen.text" @change="changeValue('text')" />
-      </t-form-item>
-      <t-form-item label="颜色" name="color">
-        <t-color-picker
-          class="w-full"
+      <a-form-item label="文本" name="text">
+        <a-input v-model:value="pen.text" @change="changeValue('text')" />
+      </a-form-item>
+      <a-form-item label="颜色" name="color">
+        <input
+          type="color"
           v-model="pen.color"
-          :show-primary-color-preview="false"
-          format="CSS"
-          :color-modes="['monochrome']"
           @change="changeValue('color')"
+          style="width: 100%; height: 32px; cursor: pointer;"
         />
-      </t-form-item>
-      <t-form-item label="背景" name="background">
-        <t-color-picker
-          class="w-full"
+      </a-form-item>
+      <a-form-item label="背景" name="background">
+        <input
+          type="color"
           v-model="pen.background"
-          :show-primary-color-preview="false"
-          format="CSS"
-          :color-modes="['monochrome']"
           @change="changeValue('background')"
+          style="width: 100%; height: 32px; cursor: pointer;"
         />
-      </t-form-item>
-      <t-form-item label="线条" name="dash">
-        <t-select v-model="pen.dash" @change="changeValue('dash')">
-          <t-option :key="0" :value="0" label="实线"></t-option>
-          <t-option :key="1" :value="1" label="虚线"></t-option>
-        </t-select>
-      </t-form-item>
-      <t-form-item label="圆角" name="borderRadius">
-        <t-input-number
+      </a-form-item>
+      <a-form-item label="线条" name="dash">
+        <a-select v-model:value="pen.dash" @change="changeValue('dash')">
+          <a-select-option :key="0" :value="0">实线</a-select-option>
+          <a-select-option :key="1" :value="1">虚线</a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item label="圆角" name="borderRadius">
+        <a-input-number
           :min="0"
           :max="1"
           :step="0.01"
-          v-model="pen.borderRadius"
+          v-model:value="pen.borderRadius"
           @change="changeValue('borderRadius')"
+          style="width: 100%"
         />
-      </t-form-item>
-      <t-form-item label="不透明度" name="globalAlpha">
-        <t-slider
-          v-model="pen.globalAlpha"
+      </a-form-item>
+      <a-form-item label="不透明度" name="globalAlpha">
+        <a-slider
+          v-model:value="pen.globalAlpha"
           :min="0"
           :max="1"
           :step="0.01"
@@ -51,52 +48,52 @@
         <span class="ml-16" style="width: 50px; line-height: 30px">
           {{ pen.globalAlpha }}
         </span>
-      </t-form-item>
+      </a-form-item>
 
-      <t-divider />
+      <a-divider />
 
-      <t-form-item label="X" name="x">
-        <t-input-number v-model="rect.x" @change="changeRect('x')" />
-      </t-form-item>
-      <t-form-item label="Y" name="y">
-        <t-input-number v-model="rect.y" @change="changeRect('y')" />
-      </t-form-item>
-      <t-form-item label="宽" name="width">
-        <t-input-number v-model="rect.width" @change="changeRect('width')" />
-      </t-form-item>
-      <t-form-item label="高" name="height">
-        <t-input-number v-model="rect.height" @change="changeRect('height')" />
-      </t-form-item>
+      <a-form-item label="X" name="x">
+        <a-input-number v-model:value="rect.x" @change="changeRect('x')" style="width: 100%" />
+      </a-form-item>
+      <a-form-item label="Y" name="y">
+        <a-input-number v-model:value="rect.y" @change="changeRect('y')" style="width: 100%" />
+      </a-form-item>
+      <a-form-item label="宽" name="width">
+        <a-input-number v-model:value="rect.width" @change="changeRect('width')" style="width: 100%" />
+      </a-form-item>
+      <a-form-item label="高" name="height">
+        <a-input-number v-model:value="rect.height" @change="changeRect('height')" style="width: 100%" />
+      </a-form-item>
 
-      <t-divider />
+      <a-divider />
 
-      <t-form-item label="文字水平对齐" name="textAlign">
-        <t-select v-model="pen.textAlign" @change="changeValue('textAlign')">
-          <t-option key="left" value="left" label="左对齐"></t-option>
-          <t-option key="center" value="center" label="居中"></t-option>
-          <t-option key="right" value="right" label="右对齐"></t-option>
-        </t-select>
-      </t-form-item>
-      <t-form-item label="文字垂直对齐" name="textBaseline">
-        <t-select
-          v-model="pen.textBaseline"
+      <a-form-item label="文字水平对齐" name="textAlign">
+        <a-select v-model:value="pen.textAlign" @change="changeValue('textAlign')">
+          <a-select-option key="left" value="left">左对齐</a-select-option>
+          <a-select-option key="center" value="center">居中</a-select-option>
+          <a-select-option key="right" value="right">右对齐</a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item label="文字垂直对齐" name="textBaseline">
+        <a-select
+          v-model:value="pen.textBaseline"
           @change="changeValue('textBaseline')"
         >
-          <t-option key="top" value="top" label="顶部对齐"></t-option>
-          <t-option key="middle" value="middle" label="居中"></t-option>
-          <t-option key="bottom" value="bottom" label="底部对齐"></t-option>
-        </t-select>
-      </t-form-item>
+          <a-select-option key="top" value="top">顶部对齐</a-select-option>
+          <a-select-option key="middle" value="middle">居中</a-select-option>
+          <a-select-option key="bottom" value="bottom">底部对齐</a-select-option>
+        </a-select>
+      </a-form-item>
 
-      <t-divider />
+      <a-divider />
 
-      <t-space>
-        <t-button @click="top">置顶</t-button>
-        <t-button @click="bottom">置底</t-button>
-        <t-button @click="up">上一层</t-button>
-        <t-button @click="down">下一层</t-button>
-      </t-space>
-    </t-form>
+      <a-space>
+        <a-button @click="top">置顶</a-button>
+        <a-button @click="bottom">置底</a-button>
+        <a-button @click="up">上一层</a-button>
+        <a-button @click="down">下一层</a-button>
+      </a-space>
+    </a-form>
   </div>
 </template>
 
@@ -167,23 +164,27 @@ onUnmounted(() => {
 </script>
 <style lang="postcss" scoped>
 .props-panel {
-  :deep(.t-form) {
-    .t-form__item {
+  :deep(.ant-form) {
+    .ant-form-item {
       margin-bottom: 8px;
     }
-    .t-form__label {
-      padding-right: 8px;
+    .ant-form-item-label {
+      padding-bottom: 4px;
     }
 
-    .t-divider {
+    .ant-divider {
       margin: 12px 0;
     }
 
-    .t-input--auto-width {
+    input[type="color"] {
       width: 100%;
+      height: 32px;
+      cursor: pointer;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
     }
 
-    .t-space {
+    .ant-space {
       gap: 4px;
     }
   }

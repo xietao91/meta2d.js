@@ -122,10 +122,11 @@ export const generateSvgGroup = (
       svgPath: url as string,  // 侧边栏图标用的SVG路径
       icon: '',
       data: {
+        text: name,
         name,                  // 对应注册的图元key
         width: defaultSize.width,
         height: defaultSize.height,
-        textLeft: -0.6,
+        // textLeft: -0.6,
         textTop: 0,
         textAlign: 'left',
         textBaseline: 'middle',

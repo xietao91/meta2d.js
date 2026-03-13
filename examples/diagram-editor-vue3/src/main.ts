@@ -3,12 +3,13 @@ import './style.css';
 import App from './App.vue';
 
 import router from './router.ts';
-import TDesign from 'tdesign-vue-next';
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/reset.css';
 
 const app = createApp(App);
 
 // 加载基础服务
-app.use(router).use(TDesign);
+app.use(router).use(Antd);
 // end
 
 app.mount('#app');
