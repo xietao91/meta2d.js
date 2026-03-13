@@ -23,6 +23,7 @@ import { formPens } from '@meta2d/form-diagram';
 import { chartsPens } from '@meta2d/le5le-charts';
 import { ftaPens, ftaPensbyCtx, ftaAnchors } from '@meta2d/fta-diagram';
 import { PCS } from '@/constants/customShapes';
+import { registerAllSvgPens } from '@/utils/autoRegister';
 
 import { useSelection } from '@/services/selections';
 
@@ -41,16 +42,19 @@ onMounted(() => {
   register(flowPens());
   registerAnchors(flowAnchors());
   register(activityDiagram());
+  console.log('activityDiagramByCtx', activityDiagramByCtx());
   registerCanvasDraw(activityDiagramByCtx());
   register(classPens());
   register(sequencePens());
   registerCanvasDraw(sequencePensbyCtx());
+  console.log('sequencePensbyCtx', sequencePensbyCtx());
   registerEcharts();
   registerCanvasDraw(formPens());
   registerCanvasDraw(chartsPens());
   register(ftaPens());
   registerCanvasDraw(ftaPensbyCtx());
-  registerCanvasDraw({PCS});
+  // registerCanvasDraw({PCS});
+  registerAllSvgPens(registerCanvasDraw);
   registerAnchors(ftaAnchors());
   // 注册其他自定义图形库
   // ...
