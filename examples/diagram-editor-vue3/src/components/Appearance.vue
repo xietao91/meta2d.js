@@ -38,16 +38,17 @@
         />
       </a-form-item>
       <a-form-item label="不透明度" name="globalAlpha">
-        <a-slider
-          v-model:value="pen.globalAlpha"
-          :min="0"
-          :max="1"
-          :step="0.01"
-          @change="changeValue('globalAlpha')"
-        />
-        <span class="ml-16" style="width: 50px; line-height: 30px">
-          {{ pen.globalAlpha }}
-        </span>
+          <a-slider
+            v-model:value="pen.globalAlpha"
+            :min="0"
+            :max="1"
+            :step="0.01"
+            @change="changeValue('globalAlpha')"
+            style="flex: 1"
+          />
+          <span style="width: 32px; text-align: right; flex-shrink: 0;">
+            {{ pen.globalAlpha }}
+          </span>
       </a-form-item>
 
       <a-divider />
@@ -87,6 +88,60 @@
 
       <a-divider />
 
+      <!-- 新增：字体大小 -->
+      <a-form-item label="字体大小" name="fontSize">
+        <a-input-number
+          :min="1"
+          :step="1"
+          v-model:value="pen.fontSize"
+          @change="changeValue('fontSize')"
+          style="width: 100%"
+          placeholder="默认"
+        />
+      </a-form-item>
+
+      <!-- 新增：文字水平偏移 -->
+      <a-form-item label="文字水平偏移" name="textLeft">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a-input-number
+            v-model:value="pen.textLeft"
+            @change="changeValue('textLeft')"
+            style="width: 100%"
+            placeholder="0"
+          />
+          <a-button
+            size="small"
+            style="flex-shrink: 0;"
+            @click="resetTextOffset('textLeft')"
+            title="重置"
+          >
+            重置
+          </a-button>
+        </div>
+      </a-form-item>
+
+      <!-- 新增：文字垂直偏移 -->
+      <a-form-item label="文字垂直偏移" name="textTop">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a-input-number
+            v-model:value="pen.textTop"
+            @change="changeValue('textTop')"
+            style="width: 100%"
+            placeholder="0"
+          />
+          <a-button
+            size="small"
+            style="flex-shrink: 0;"
+            @click="resetTextOffset('textTop')"
+            title="重置"
+          >
+            重置
+          </a-button>
+        </div>
+      </a-form-item>
+
+      <a-divider />
+
       <a-space>
         <a-button @click="top">置顶</a-button>
         <a-button @click="bottom">置底</a-button>
@@ -116,6 +171,13 @@ const getPen = () => {
   if (pen.value.globalAlpha == undefined) {
     pen.value.globalAlpha = 1;
   }
+  // 初始化偏移默认值，避免显示 undefined
+  if (pen.value.textLeft == undefined) {
+    pen.value.textLeft = 0;
+  }
+  if (pen.value.textTop == undefined) {
+    pen.value.textTop = 0;
+  }
 
   rect.value = meta2d.getPenRect(pen.value);
 };
@@ -133,12 +195,21 @@ const changeValue = (prop: string) => {
     v.lineDash = lineDashs[v[prop]];
   }
   meta2d.setValue(v, { render: true });
+  localStorage.setItem("meta2d", JSON.stringify(meta2d.data()));
 };
 
 const changeRect = (prop: string) => {
   const v: any = { id: pen.value.id };
   v[prop] = rect.value[prop];
   meta2d.setValue(v, { render: true });
+  localStorage.setItem("meta2d", JSON.stringify(meta2d.data()));
+};
+
+// 重置文字偏移为 0
+const resetTextOffset = (prop: 'textLeft' | 'textTop') => {
+  pen.value[prop] = 0;
+  meta2d.setValue({ id: pen.value.id, [prop]: 0 }, { render: true });
+  localStorage.setItem("meta2d", JSON.stringify(meta2d.data()));
 };
 
 const top = () => {
@@ -162,6 +233,7 @@ onUnmounted(() => {
   watcher();
 });
 </script>
+
 <style lang="postcss" scoped>
 .props-panel {
   :deep(.ant-form) {
