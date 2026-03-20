@@ -25,11 +25,9 @@
         />
       </a-form-item>
       <a-form-item label="网格颜色" name="gridColor">
-        <input
-          type="color"
+        <ColorPickerField
           v-model="options.gridColor"
           @change="onChangeOptions"
-          style="width: 100%; height: 32px; cursor: pointer;"
         />
       </a-form-item>
 
@@ -42,19 +40,15 @@
       <a-divider />
 
       <a-form-item label="背景颜色" name="background">
-        <input
-          type="color"
+        <ColorPickerField
           v-model="data.background"
           @change="onChangeData"
-          style="width: 100%; height: 32px; cursor: pointer;"
         />
       </a-form-item>
       <a-form-item label="图元默认颜色" name="color">
-        <input
-          type="color"
+        <ColorPickerField
           v-model="data.color"
           @change="onChangeData"
-          style="width: 100%; height: 32px; cursor: pointer;"
         />
       </a-form-item>
     </a-form>
@@ -63,6 +57,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue';
+import ColorPickerField from './ColorPickerField.vue';
 
 // 图纸数据
 const data = reactive<any>({
@@ -116,13 +111,6 @@ const onChangeOptions = () => {
       margin: 12px 0;
     }
 
-    input[type="color"] {
-      width: 100%;
-      height: 32px;
-      cursor: pointer;
-      border: 1px solid #d9d9d9;
-      border-radius: 4px;
-    }
   }
 }
 </style>

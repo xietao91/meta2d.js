@@ -6,19 +6,15 @@
         <a-input v-model:value="pen.text" @change="changeValue('text')" />
       </a-form-item>
       <a-form-item label="颜色" name="color">
-        <input
-          type="color"
+        <ColorPickerField
           v-model="pen.color"
           @change="changeValue('color')"
-          style="width: 100%; height: 32px; cursor: pointer;"
         />
       </a-form-item>
       <a-form-item label="背景" name="background">
-        <input
-          type="color"
+        <ColorPickerField
           v-model="pen.background"
           @change="changeValue('background')"
-          style="width: 100%; height: 32px; cursor: pointer;"
         />
       </a-form-item>
       <a-form-item label="线条" name="dash">
@@ -38,38 +34,57 @@
         />
       </a-form-item>
       <a-form-item label="不透明度" name="globalAlpha">
-          <a-slider
-            v-model:value="pen.globalAlpha"
-            :min="0"
-            :max="1"
-            :step="0.01"
-            @change="changeValue('globalAlpha')"
-            style="flex: 1"
-          />
-          <span style="width: 32px; text-align: right; flex-shrink: 0;">
-            {{ pen.globalAlpha }}
-          </span>
+        <a-slider
+          v-model:value="pen.globalAlpha"
+          :min="0"
+          :max="1"
+          :step="0.01"
+          @change="changeValue('globalAlpha')"
+          style="flex: 1"
+        />
+        <span style="width: 32px; text-align: right; flex-shrink: 0">
+          {{ pen.globalAlpha }}
+        </span>
       </a-form-item>
 
       <a-divider />
 
       <a-form-item label="X" name="x">
-        <a-input-number v-model:value="rect.x" @change="changeRect('x')" style="width: 100%" />
+        <a-input-number
+          v-model:value="rect.x"
+          @change="changeRect('x')"
+          style="width: 100%"
+        />
       </a-form-item>
       <a-form-item label="Y" name="y">
-        <a-input-number v-model:value="rect.y" @change="changeRect('y')" style="width: 100%" />
+        <a-input-number
+          v-model:value="rect.y"
+          @change="changeRect('y')"
+          style="width: 100%"
+        />
       </a-form-item>
       <a-form-item label="宽" name="width">
-        <a-input-number v-model:value="rect.width" @change="changeRect('width')" style="width: 100%" />
+        <a-input-number
+          v-model:value="rect.width"
+          @change="changeRect('width')"
+          style="width: 100%"
+        />
       </a-form-item>
       <a-form-item label="高" name="height">
-        <a-input-number v-model:value="rect.height" @change="changeRect('height')" style="width: 100%" />
+        <a-input-number
+          v-model:value="rect.height"
+          @change="changeRect('height')"
+          style="width: 100%"
+        />
       </a-form-item>
 
       <a-divider />
 
       <a-form-item label="文字水平对齐" name="textAlign">
-        <a-select v-model:value="pen.textAlign" @change="changeValue('textAlign')">
+        <a-select
+          v-model:value="pen.textAlign"
+          @change="changeValue('textAlign')"
+        >
           <a-select-option key="left" value="left">左对齐</a-select-option>
           <a-select-option key="center" value="center">居中</a-select-option>
           <a-select-option key="right" value="right">右对齐</a-select-option>
@@ -82,7 +97,9 @@
         >
           <a-select-option key="top" value="top">顶部对齐</a-select-option>
           <a-select-option key="middle" value="middle">居中</a-select-option>
-          <a-select-option key="bottom" value="bottom">底部对齐</a-select-option>
+          <a-select-option key="bottom" value="bottom"
+            >底部对齐</a-select-option
+          >
         </a-select>
       </a-form-item>
 
@@ -102,7 +119,7 @@
 
       <!-- 新增：文字水平偏移 -->
       <a-form-item label="文字水平偏移" name="textLeft">
-        <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px">
           <a-input-number
             v-model:value="pen.textLeft"
             @change="changeValue('textLeft')"
@@ -111,7 +128,7 @@
           />
           <a-button
             size="small"
-            style="flex-shrink: 0;"
+            style="flex-shrink: 0"
             @click="resetTextOffset('textLeft')"
             title="重置"
           >
@@ -122,7 +139,7 @@
 
       <!-- 新增：文字垂直偏移 -->
       <a-form-item label="文字垂直偏移" name="textTop">
-        <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px">
           <a-input-number
             v-model:value="pen.textTop"
             @change="changeValue('textTop')"
@@ -131,7 +148,7 @@
           />
           <a-button
             size="small"
-            style="flex-shrink: 0;"
+            style="flex-shrink: 0"
             @click="resetTextOffset('textTop')"
             title="重置"
           >
@@ -153,8 +170,9 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { useSelection } from '@/services/selections';
+import { onMounted, onUnmounted, ref, watch } from "vue";
+import { useSelection } from "@/services/selections";
+import ColorPickerField from "./ColorPickerField.vue";
 
 const { selections } = useSelection();
 
@@ -191,7 +209,7 @@ const lineDashs = [undefined, [5, 5]];
 const changeValue = (prop: string) => {
   const v: any = { id: pen.value.id };
   v[prop] = pen.value[prop];
-  if (prop === 'dash') {
+  if (prop === "dash") {
     v.lineDash = lineDashs[v[prop]];
   }
   meta2d.setValue(v, { render: true });
@@ -206,7 +224,7 @@ const changeRect = (prop: string) => {
 };
 
 // 重置文字偏移为 0
-const resetTextOffset = (prop: 'textLeft' | 'textTop') => {
+const resetTextOffset = (prop: "textLeft" | "textTop") => {
   pen.value[prop] = 0;
   meta2d.setValue({ id: pen.value.id, [prop]: 0 }, { render: true });
   localStorage.setItem("meta2d", JSON.stringify(meta2d.data()));
@@ -246,14 +264,6 @@ onUnmounted(() => {
 
     .ant-divider {
       margin: 12px 0;
-    }
-
-    input[type="color"] {
-      width: 100%;
-      height: 32px;
-      cursor: pointer;
-      border: 1px solid #d9d9d9;
-      border-radius: 4px;
     }
 
     .ant-space {
