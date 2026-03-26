@@ -2,6 +2,13 @@
   <div class="props-panel">
     <a-form layout="vertical" v-if="pen">
       <h5 class="mb-24">图元</h5>
+      <a-form-item label="ID" name="id">
+        <a-input
+          v-model:value="penId"
+          @blur="changePenId"
+          @pressEnter="changePenId"
+        />
+      </a-form-item>
       <a-form-item label="文本" name="text">
         <a-input v-model:value="pen.text" @change="changeValue('text')" />
       </a-form-item>
@@ -173,10 +180,12 @@
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useSelection } from "@/services/selections";
 import ColorPickerField from "./ColorPickerField.vue";
+import { message } from "ant-design-vue";
 
 const { selections } = useSelection();
 
 const pen = ref<any>();
+const penId = ref("");
 // 位置数据。当前版本位置需要动态计算获取
 const rect = ref<any>();
 
@@ -186,6 +195,7 @@ onMounted(() => {
 
 const getPen = () => {
   pen.value = selections.pen;
+  penId.value = pen.value?.id || "";
   if (pen.value.globalAlpha == undefined) {
     pen.value.globalAlpha = 1;
   }
@@ -198,6 +208,40 @@ const getPen = () => {
   }
 
   rect.value = meta2d.getPenRect(pen.value);
+};
+
+const changePenId = () => {
+  if (!pen.value?.id) {
+    return;
+  }
+
+  const oldId = pen.value.id;
+  const newId = penId.value?.trim();
+
+  if (!newId) {
+    message.warning("ID 不能为空");
+    penId.value = oldId;
+    return;
+  }
+
+  if (newId === oldId) {
+    penId.value = oldId;
+    return;
+  }
+
+  if (meta2d.findOne(newId)) {
+    message.error("ID 已存在，请使用其他 ID");
+    penId.value = oldId;
+    return;
+  }
+
+  meta2d.changePenId(oldId, newId);
+  pen.value = meta2d.findOne(newId) || pen.value;
+  selections.pen = pen.value;
+  rect.value = meta2d.getPenRect(pen.value);
+  penId.value = newId;
+  meta2d.render();
+  localStorage.setItem("meta2d", JSON.stringify(meta2d.data()));
 };
 
 // 监听选中不同图元
