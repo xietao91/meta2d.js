@@ -159,11 +159,11 @@
 
       <a-divider />
 
-      <a-space>
-        <a-button @click="top">置顶</a-button>
-        <a-button @click="bottom">置底</a-button>
-        <a-button @click="up">上一层</a-button>
-        <a-button @click="down">下一层</a-button>
+      <a-space wrap class="actions-space">
+        <a-button class="action-btn" @click="top">置顶</a-button>
+        <a-button class="action-btn" @click="bottom">置底</a-button>
+        <a-button class="action-btn" @click="up">上一层</a-button>
+        <a-button class="action-btn" @click="down">下一层</a-button>
       </a-space>
     </a-form>
   </div>
@@ -268,6 +268,20 @@ onUnmounted(() => {
 
     .ant-space {
       gap: 4px;
+    }
+
+    .actions-space {
+      display: flex;
+      width: 100%;
+    }
+
+    .actions-space :deep(.ant-space-item) {
+      flex: 1 1 calc(50% - 4px);
+      min-width: 0;
+    }
+
+    .action-btn {
+      width: 100%;
     }
   }
 }
