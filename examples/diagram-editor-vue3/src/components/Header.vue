@@ -489,6 +489,110 @@ function isShowChild(pen: any, store: any) {
   return true;
 }
 
+function normalizeSvgAttrName(name: string) {
+  return name
+    .trim()
+    .replace(/[^a-zA-Z0-9:_-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function getCustomDataValue(item: any) {
+  if (item && typeof item === 'object' && 'value' in item) {
+    return item.value;
+  }
+  return item;
+}
+
+function getPenSvgAttributes(pen: any) {
+  const attrs: Record<string, string> = {};
+  if (!pen?.id) {
+    return attrs;
+  }
+
+  attrs.id = pen.id;
+  attrs['data-pen-id'] = pen.id;
+
+  const nodeType = pen.nodeType?.trim?.();
+  if (nodeType) {
+    attrs.type = nodeType;
+    attrs['data-type'] = nodeType;
+  }
+
+  const customData = pen.customData || {};
+  Object.keys(customData).forEach((key) => {
+    const attrName = normalizeSvgAttrName(key);
+    const value = getCustomDataValue(customData[key]);
+    if (!attrName || value === '' || value === undefined || value === null) {
+      return;
+    }
+
+    const text = String(value);
+    attrs[`data-${attrName}`] = text;
+    if (attrName === 'type' && !attrs.type) {
+      attrs.type = text;
+      attrs['data-type'] = text;
+    }
+  });
+
+  return attrs;
+}
+
+function applyAttrsToElement(target: any, attrs: Record<string, string>) {
+  if (!target?.setAttribute) {
+    return false;
+  }
+
+  Object.entries(attrs).forEach(([key, value]) => {
+    target.setAttribute(key, value);
+  });
+  return true;
+}
+
+function applyAttrsToCtx(ctx: any, attrs: Record<string, string>) {
+  const candidates = [
+    ctx.__currentElement,
+    ctx._currentElement,
+    ctx.currentElement,
+    ctx.__closestGroup,
+    ctx._closestGroup,
+  ];
+
+  for (const target of candidates) {
+    if (applyAttrsToElement(target, attrs)) {
+      return;
+    }
+  }
+}
+
+function enrichSerializedSvg(svgText: string, pens: any[]) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgText, 'image/svg+xml');
+  const svg = doc.documentElement;
+  if (!svg || svg.nodeName === 'parsererror') {
+    return svgText;
+  }
+
+  pens.forEach((pen) => {
+    const attrs = getPenSvgAttributes(pen);
+    if (!Object.keys(attrs).length) {
+      return;
+    }
+
+    const selector = `[id="${pen.id}"], [data-pen-id="${pen.id}"]`;
+    const el = svg.querySelector(selector);
+    if (!el) {
+      return;
+    }
+
+    Object.entries(attrs).forEach(([key, value]) => {
+      el.setAttribute(key, value);
+    });
+  });
+
+  return new XMLSerializer().serializeToString(doc);
+}
+
 const downloadSvg = () => {
   if (!C2S) {
     message.error('请先加载乐吾乐官网下的canvas2svg.js');
@@ -499,6 +603,14 @@ const downloadSvg = () => {
   rect.x -= 10;
   rect.y -= 10;
   const ctx = new C2S(rect.width + 20, rect.height + 20);
+  const rawSetAttrs =
+    typeof (ctx as any).setAttrs === 'function'
+      ? (ctx as any).setAttrs.bind(ctx)
+      : undefined;
+  (ctx as any).setAttrs = (pen: any) => {
+    rawSetAttrs?.(pen);
+    applyAttrsToCtx(ctx, getPenSvgAttributes(pen));
+  };
   ctx.textBaseline = 'middle';
   for (const pen of meta2d.store.data.pens) {
     if (pen.visible == false || !isShowChild(pen, meta2d.store)) {
@@ -520,6 +632,7 @@ const downloadSvg = () => {
   }
 
   mySerializedSVG = mySerializedSVG.replace(/--le5le--/g, '&#x');
+  mySerializedSVG = enrichSerializedSvg(mySerializedSVG, meta2d.store.data.pens);
 
   const urlObject: any = (window as any).URL || window;
   const export_blob = new Blob([mySerializedSVG]);
