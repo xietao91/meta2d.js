@@ -140,3 +140,14 @@ export const generateSvgGroup = (
 
   return { name: groupName, show: true, list }
 }
+
+// =============================================
+// 导出 SVG URL 映射，用于导出时转换为 data URI
+// =============================================
+export const getSvgUrlMap = (): Record<string, string> => {
+  const urlMap: Record<string, string> = {}
+  for (const [path, url] of Object.entries(svgModules)) {
+    urlMap[url as string] = url as string
+  }
+  return urlMap
+}

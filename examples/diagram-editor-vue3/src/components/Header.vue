@@ -390,7 +390,10 @@ const handleFileMenuClick = (e: any) => {
   else if (key === 'openFile') openFile();
   else if (key === 'downloadJson') downloadJson();
   else if (key === 'downloadPng') downloadPng();
-  else if (key === 'downloadSvg') downloadSvg();
+  else if (key === 'downloadSvg') downloadSvg().catch(err => {
+    console.error('Failed to download SVG:', err);
+    message.error('导出SVG失败，请重试');
+  });
 };
 
 const handleEditMenuClick = (e: any) => {
@@ -593,7 +596,58 @@ function enrichSerializedSvg(svgText: string, pens: any[]) {
   return new XMLSerializer().serializeToString(doc);
 }
 
-const downloadSvg = () => {
+// =============================================
+// 将图像 URL 转换为 Base64 Data URI
+// =============================================
+async function convertImageToDataUri(imageUrl: string): Promise<string> {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.warn(`Failed to convert image to data URI: ${imageUrl}`, error);
+    return imageUrl; // 如果转换失败，返回原始URL
+  }
+}
+
+// =============================================
+// 将已导出的SVG中的相对图像路径转换为 Data URI
+// =============================================
+async function convertRelativeImagesToDaUri(svgText: string): Promise<string> {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgText, 'image/svg+xml');
+  const svg = doc.documentElement;
+  if (!svg || svg.nodeName === 'parsererror') {
+    return svgText;
+  }
+
+  const images = svg.querySelectorAll('image');
+  const conversions: Promise<void>[] = [];
+
+  images.forEach((img) => {
+    const href = img.getAttribute('href') || img.getAttribute('xlink:href') || '';
+
+    // 检查是否是来自 src/svg 的相对路径或模块路径
+    if (href && (href.startsWith('/src/svg/') || href.includes('svg'))) {
+      const conversion = convertImageToDataUri(href).then((dataUri) => {
+        img.setAttribute('href', dataUri);
+        img.removeAttribute('xlink:href');
+      });
+      conversions.push(conversion);
+    }
+  });
+
+  // 等待所有图像转换完成
+  await Promise.all(conversions);
+  return new XMLSerializer().serializeToString(doc);
+}
+
+const downloadSvg = async () => {
   if (!C2S) {
     message.error('请先加载乐吾乐官网下的canvas2svg.js');
     return;
@@ -633,6 +687,9 @@ const downloadSvg = () => {
 
   mySerializedSVG = mySerializedSVG.replace(/--le5le--/g, '&#x');
   mySerializedSVG = enrichSerializedSvg(mySerializedSVG, meta2d.store.data.pens);
+
+  // 转换相对路径的图像为 Data URI，使得导出的 SVG 可以自包含
+  mySerializedSVG = await convertRelativeImagesToDaUri(mySerializedSVG);
 
   const urlObject: any = (window as any).URL || window;
   const export_blob = new Blob([mySerializedSVG]);
