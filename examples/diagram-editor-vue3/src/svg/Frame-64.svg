@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.1 4.5H16.1" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M15.1 4.5V27.5" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M15.1 14.6C16.8121 14.6 18.2 13.2121 18.2 11.5C18.2 9.78794 16.8121 8.40002 15.1 8.40002C13.3879 8.40002 12 9.78794 12 11.5C12 13.2121 13.3879 14.6 15.1 14.6Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M15.1 23.6C16.8121 23.6 18.2 22.2121 18.2 20.5C18.2 18.7879 16.8121 17.4 15.1 17.4C13.3879 17.4 12 18.7879 12 20.5C12 22.2121 13.3879 23.6 15.1 23.6Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18.2 11.5H22.1" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.3 9.40002L20.3 13.6" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M20.7 9.40002L21.7 13.6" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18.2 20.5H22.1" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.3 18.4L20.3 22.6" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M20.7 18.4L21.7 22.6" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.1 27.5H16.1" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.3998 14.2C16.9403 14.2 18.9998 12.1405 18.9998 9.6C18.9998 7.05949 16.9403 5 14.3998 5C11.8593 5 9.7998 7.05949 9.7998 9.6C9.7998 12.1405 11.8593 14.2 14.3998 14.2Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.6 20.5C12.1405 20.5 14.2 18.4406 14.2 15.9C14.2 13.3595 12.1405 11.3 9.6 11.3C7.05949 11.3 5 13.3595 5 15.9C5 18.4406 7.05949 20.5 9.6 20.5Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.1999 20.5C21.7404 20.5 23.7999 18.4406 23.7999 15.9C23.7999 13.3595 21.7404 11.3 19.1999 11.3C16.6593 11.3 14.5999 13.3595 14.5999 15.9C14.5999 18.4406 16.6593 20.5 19.1999 20.5Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.3998 27C16.9403 27 18.9998 24.9406 18.9998 22.4C18.9998 19.8595 16.9403 17.8 14.3998 17.8C11.8593 17.8 9.7998 19.8595 9.7998 22.4C9.7998 24.9406 11.8593 27 14.3998 27Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.3999 11.8V9.09998" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.4 9.10002L12.7 7.40002" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.3999 9.10002L16.0999 7.40002" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.59985 17.8V15.1" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.5999 15.1L7.8999 13.4" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.59985 15.1L11.2999 13.4" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.2 17.8V15.1" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.2 15.1L17.5 13.4" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.2 15.1L20.9 13.4" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.4 20.4L12.2 24.1H16.6L14.4 20.4Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.3999 9.40002L26.3999 9.40002" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M26.3999 7.40002V11.4" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M28.3999 8.09998V10.7" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+</svg>

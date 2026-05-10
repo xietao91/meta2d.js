@@ -1,0 +1,25 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 6V7.3" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M16 16C18.2091 16 20 14.2091 20 12C20 9.79086 18.2091 8 16 8C13.7909 8 12 9.79086 12 12C12 14.2091 13.7909 16 16 16Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M11 21C13.2091 21 15 19.2091 15 17C15 14.7909 13.2091 13 11 13C8.79086 13 7 14.7909 7 17C7 19.2091 8.79086 21 11 21Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M21 21C23.2091 21 25 19.2091 25 17C25 14.7909 23.2091 13 21 13C18.7909 13 17 14.7909 17 17C17 19.2091 18.7909 21 21 21Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M11 28C13.2091 28 15 26.2091 15 24C15 21.7909 13.2091 20 11 20C8.79086 20 7 21.7909 7 24C7 26.2091 8.79086 28 11 28Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M21 28C23.2091 28 25 26.2091 25 24C25 21.7909 23.2091 20 21 20C18.7909 20 17 21.7909 17 24C17 26.2091 18.7909 28 21 28Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M4 6H8" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M10 6H18" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M8 5V7" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18 5V7" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M20 5V7" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M10 5V7" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M20 6H27" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M27 4V8" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M29 5V7" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M20 11.5L27 11.5" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M27 9.5V13.5" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M29 10.5V12.5" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M14.5 12H17.9" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.5 17H12.9" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.5 24H12.9" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.5 17H22.9" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.5 24H22.9" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+</svg>

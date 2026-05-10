@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8 16.6C16.7271 16.6 19.1 14.2271 19.1 11.3C19.1 8.37289 16.7271 6 13.8 6C10.8729 6 8.5 8.37289 8.5 11.3C8.5 14.2271 10.8729 16.6 13.8 16.6Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.3 24.6C12.2271 24.6 14.6 22.2271 14.6 19.3C14.6 16.3729 12.2271 14 9.3 14C6.37289 14 4 16.3729 4 19.3C4 22.2271 6.37289 24.6 9.3 24.6Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18.3 24.6C21.2271 24.6 23.6 22.2271 23.6 19.3C23.6 16.3729 21.2271 14 18.3 14C15.3729 14 13 16.3729 13 19.3C13 22.2271 15.3729 24.6 18.3 24.6Z" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M13.8 13.2V10.3" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M13.8 10.3L12 8.5" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M13.8 10.3L15.6 8.5" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.29993 21.7V18.8" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.3 18.8L7.5 17" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M9.29993 18.8L11.0999 17" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18.3 21.7V18.8" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18.3 18.8L16.5 17" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M18.3 18.8L20.1 17" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M19.1 11H26" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M26 9V13" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+<path d="M28 9.69995V12.3" stroke="black" stroke-width="0.8" stroke-linecap="square"/>
+</svg>

@@ -764,7 +764,7 @@ const buildInGraphics = [
   },
 ];
 
-const graphicGroups = [...buildInGraphics,generateSvgGroup()]; // 从 /src/svg/ 自动生成图元列表
+const graphicGroups = [generateSvgGroup(),...buildInGraphics]; // 从 /src/svg/ 自动生成图元列表
 const dragStart = (e: any, elem: any) => {
   if (!elem) {
     return;
